@@ -2,6 +2,9 @@
     <string name="app_name">Quiz</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="count_id2">0 баллов</string>
+    <string name="previous">PREVIOUS</string>
+    <string name="next">NEXT</string>
+    <string name="submit">SUBMIT</string>
     <plurals name="count_id">
         <item quantity="one">%1$d балл</item>
         <item quantity="other">%1$d баллов</item>

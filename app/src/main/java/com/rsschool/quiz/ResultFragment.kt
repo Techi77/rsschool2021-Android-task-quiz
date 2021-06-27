@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.rsschool.quiz.databinding.FragmentResultBinding
-import java.lang.System.exit
 import kotlin.system.exitProcess
 
 class ResultFragment : Fragment() {
@@ -20,7 +19,7 @@ class ResultFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentResultBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -46,14 +45,14 @@ class ResultFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val counting = counting()
         binding.apply {
-            someId.text = resources.getQuantityString(R.plurals.count_id, counting, counting)
+            resultText.text = resources.getQuantityString(R.plurals.count_id, counting, counting)
 
             btnShare.setOnClickListener {
                 launcher?.shareResult(counting)
             }
 
             btnRestart.setOnClickListener {
-
+                QuestionBase.clearResult()
                 launcher?.launchQuestionFragment(0)
             }
 

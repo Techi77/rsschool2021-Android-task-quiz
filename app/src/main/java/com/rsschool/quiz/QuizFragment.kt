@@ -1,5 +1,6 @@
 package com.rsschool.quiz
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -20,7 +21,7 @@ class QuizFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val questionNumber = arguments?.getInt(QUESTION_KEY) ?: 0
         val question1 = QuestionBase.questions[questionNumber]
         requireActivity().setTheme(question1.theme)
@@ -52,6 +53,7 @@ class QuizFragment : Fragment() {
         }
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val questionNumber = arguments?.getInt(QUESTION_KEY) ?: 0
@@ -63,7 +65,7 @@ class QuizFragment : Fragment() {
             optionThree.text = question1.answers[2].first
             optionFour.text = question1.answers[3].first
             optionFive.text = question1.answers[4].first
-            nextButton.text = if (questionNumber == 4) "SUBMIT" else "NEXT"
+            nextButton.text = if (questionNumber == 4) context?.getString(R.string.submit) else context?.getString(R.string.next)
             toolbar.title = "Question ${questionNumber.inc()}"
             toolbar.navigationIcon = if (questionNumber == 0) null else context?.getDrawable(R.drawable.ic_baseline_chevron_left_24)
             previousButton.visibility = if (questionNumber == 0) View.GONE else View.VISIBLE
