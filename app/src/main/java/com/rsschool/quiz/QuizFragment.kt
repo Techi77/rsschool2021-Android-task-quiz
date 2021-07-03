@@ -65,10 +65,16 @@ class QuizFragment : Fragment() {
             optionThree.text = question1.answers[2].first
             optionFour.text = question1.answers[3].first
             optionFive.text = question1.answers[4].first
-            nextButton.text = if (questionNumber == 4) context?.getString(R.string.submit) else context?.getString(R.string.next)
+            nextButton.text =
+                if (questionNumber == 4) context?.getString(R.string.submit) else context?.getString(
+                    R.string.next
+                )
             toolbar.title = "Question ${questionNumber.inc()}"
-            toolbar.navigationIcon = if (questionNumber == 0) null else context?.getDrawable(R.drawable.ic_baseline_chevron_left_24)
+            toolbar.navigationIcon =
+                if (questionNumber == 0) null else context?.getDrawable(R.drawable.ic_baseline_chevron_left_24)
             previousButton.visibility = if (questionNumber == 0) View.GONE else View.VISIBLE
+            if (!optionOne.isChecked && !optionTwo.isChecked && !optionThree.isChecked && !optionFour.isChecked && !optionFive.isChecked) nextButton.isEnabled =
+                question1.userAnswer != -1
 
             when (question1.userAnswer) {
                 0 -> optionOne.isChecked = true
@@ -80,11 +86,26 @@ class QuizFragment : Fragment() {
 
             radioGroup.setOnCheckedChangeListener { _, checkedId ->
                 when (checkedId) {
-                    optionOne.id -> question1.userAnswer = 0
-                    optionTwo.id -> question1.userAnswer = 1
-                    optionThree.id -> question1.userAnswer = 2
-                    optionFour.id -> question1.userAnswer = 3
-                    optionFive.id -> question1.userAnswer = 4
+                    optionOne.id -> {
+                        question1.userAnswer = 0
+                        nextButton.isEnabled = true
+                    }
+                    optionTwo.id -> {
+                        question1.userAnswer = 1
+                        nextButton.isEnabled = true
+                    }
+                    optionThree.id -> {
+                        question1.userAnswer = 2
+                        nextButton.isEnabled = true
+                    }
+                    optionFour.id -> {
+                        question1.userAnswer = 3
+                        nextButton.isEnabled = true
+                    }
+                    optionFive.id -> {
+                        question1.userAnswer = 4
+                        nextButton.isEnabled = true
+                    }
                 }
             }
 
@@ -103,7 +124,7 @@ class QuizFragment : Fragment() {
                     launcher?.launchQuestionFragment(questionNumber.inc())
                 }
             }
-            toolbar.setNavigationOnClickListener{
+            toolbar.setNavigationOnClickListener {
                 if (questionNumber > 0)
                     launcher?.launchQuestionFragment(questionNumber.dec())
                 else {
